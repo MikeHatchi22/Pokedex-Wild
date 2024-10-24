@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react';
 import './App.css'
+import PokemonCard from './components/PokemonCard';
+
+const pokemonList = [
+  {
+    name: "bulbasaur",
+    imgSrc:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+  },
+  {
+    name: "charmander",
+    imgSrc:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
+  },
+  {
+    name: "squirtle",
+    imgSrc:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
+  },
+  {
+    name: "pikachu",
+    imgSrc:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+  },
+  {
+    name: "mew",
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [pokemonIndex, setPokemonIndex] = useState(0);
 
+  const handleClickNext = () => {
+    setPokemonIndex(pokemonIndex + 1);
+
+  }
+
+  const handleClickPrev = () => {
+    setPokemonIndex(pokemonIndex - 1)
+  }
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <PokemonCard name={pokemonList[pokemonIndex].name} imgSrc={pokemonList[pokemonIndex].imgSrc} />
+      {pokemonIndex === 0 ? <button onClick={handleClickPrev} hidden>Précédent</button>
+        : <button onClick={handleClickPrev}>Précédent</button>}
+
+      {pokemonIndex < pokemonList.length - 1 ? <button onClick={handleClickNext}>Suivant</button>
+        : <button onClick={handleClickNext} hidden>Suivant</button>}
+    </div>
+  );
 }
 
-export default App
+export default App;
